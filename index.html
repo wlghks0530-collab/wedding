@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>모바일 청첩장 - 12월의 겨울 웨딩</title>
     <style>
-        /* 기본 스타일 세팅 */
         :root {
             --bg-color: #f7f9fa;
             --main-color: #2c3e50;
-            --accent-color: #8b0000; /* 겨울 포인트 컬러 (딥 레드/버건디) */
+            --accent-color: #8b0000;
             --text-color: #333333;
             --card-bg: #ffffff;
         }
@@ -17,15 +16,14 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
-        /* 눈 내리는 애니메이션 Canvas */
         #snow-canvas {
             position: fixed;
             top: 0;
@@ -40,90 +38,130 @@
             max-width: 480px;
             margin: 0 auto;
             background-color: var(--card-bg);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
             min-height: 100vh;
         }
 
-        /* 헤더 / 메인 커버 */
         .header {
-            padding: 50px 20px;
-            background: linear-gradient(180deg, #eef2f5 0%, #ffffff 100%);
+            padding: 50px 20px 30px;
+            background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%);
         }
 
         .sub-title {
-            font-size: 14px;
-            letter-spacing: 2px;
-            color: #777;
-            margin-bottom: 10px;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         .main-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 600;
             color: var(--main-color);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .main-img-box {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
         }
 
         .main-img {
             width: 100%;
-            height: 350px;
-            background-color: #eee;
-            border-radius: 8px;
+            height: auto;
+            display: block;
             object-fit: cover;
         }
 
-        /* 섹션 공통 */
+        .date-info {
+            font-size: 16px;
+            color: #444;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
         .section {
-            padding: 40px 20px;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 45px 25px;
+            border-bottom: 1px solid #f0f3f5;
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--main-color);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
         }
 
-        /* 인사말 */
         .greeting-text {
             font-size: 15px;
             color: #555;
             word-break: keep-all;
+            line-height: 1.9;
         }
 
-        /* D-Day 카운트다운 */
+        .dday-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--main-color);
+            margin-bottom: 15px;
+        }
+
         .dday-box {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px;
         }
 
         .dday-item {
             background: #f8f9fa;
-            padding: 10px 15px;
+            padding: 12px 10px;
             border-radius: 8px;
-            min-width: 50px;
+            flex: 1;
+            max-width: 70px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
         }
 
         .dday-number {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             color: var(--main-color);
         }
 
         .dday-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #888;
+            margin-top: 2px;
         }
 
-        /* 버튼 스타일 */
+        .location-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .location-address {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .btn {
             display: inline-block;
-            padding: 12px 24px;
-            margin: 5px;
+            padding: 11px 20px;
             border-radius: 6px;
             background-color: #f1f3f5;
             color: #333;
@@ -131,7 +169,8 @@
             font-size: 14px;
             border: none;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
+            font-weight: 500;
         }
 
         .btn-primary {
@@ -139,46 +178,57 @@
             color: #fff;
         }
 
-        /* 계좌 안내 모달/토글 */
         .account-box {
             background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 15px;
             text-align: left;
+        }
+
+        .account-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 8px;
         }
 
         .account-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
             font-size: 14px;
+            color: #555;
+            margin-top: 5px;
         }
 
-        /* 푸터 */
         .footer {
-            padding: 30px 20px;
+            padding: 35px 20px;
             font-size: 12px;
             color: #aaa;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- 눈 내리는 효과 Canvas -->
     <canvas id="snow-canvas"></canvas>
 
     <div class="container">
-        <!-- 메인 헤더 -->
+        <!-- 헤더 섹션 -->
         <header class="header">
             <div class="sub-title">WINTER WEDDING</div>
-            <div class="main-title">신랑 이름 & 신부 이름</div>
-            <img src="https://via.placeholder.com/400x500?text=Winter+Wedding+Photo" alt="메인 사진" class="main-img">
-            <p style="margin-top: 20px; font-size: 15px; color: #666;">
-                2026년 12월 19일 토요일 오후 1시<br>
-                OO웨딩홀 O층 OO홀
-            </p>
+            <div class="main-title">신랑 & 신부</div>
+            
+            <div class="main-img-box">
+                <!-- 1단계에서 업로드한 사진 파일명 main.jpg -->
+                <img src="main.jpg" alt="웨딩 사진" class="main-img" onerror="this.src='https://via.placeholder.com/400x550?text=main.jpg+Upload+Required'">
+            </div>
+
+            <div class="date-info">
+                2026년 12월 5일 토요일 오후 1시 30분<br>
+                청주 벨리스웨딩홀
+            </div>
         </header>
 
         <!-- 인사말 섹션 -->
@@ -198,7 +248,7 @@
         <!-- D-Day 섹션 -->
         <section class="section">
             <div class="section-title">COUNTDOWN</div>
-            <div id="dday-text" style="font-weight: bold; margin-bottom: 10px;"></div>
+            <div id="dday-text" class="dday-text">예식일까지 계산 중...</div>
             <div class="dday-box">
                 <div class="dday-item"><div class="dday-number" id="days">0</div><div class="dday-label">DAYS</div></div>
                 <div class="dday-item"><div class="dday-number" id="hours">0</div><div class="dday-label">HOURS</div></div>
@@ -207,41 +257,49 @@
             </div>
         </section>
 
-        <!-- 오시는 길 -->
+        <!-- 오시는 길 섹션 -->
         <section class="section">
             <div class="section-title">LOCATION</div>
-            <p><strong>OO웨딩홀</strong></p>
-            <p style="font-size: 14px; color: #666;">서울시 OO구 OO로 123 (전화번호)</p>
-            <div style="margin-top: 15px;">
-                <a href="https://map.kakao.com" target="_blank" class="btn btn-primary">카카오맵 연결</a>
-                <a href="https://navi.kakao.com" target="_blank" class="btn">내비게이션</a>
+            <div class="location-name">청주 벨리스웨딩홀</div>
+            <div class="location-address">충북 청주시 서원구 남이면 청남로 1759</div>
+            
+            <div class="btn-group">
+                <a href="https://map.kakao.com/link/search/청주 벨리스웨딩홀" target="_blank" class="btn btn-primary">카카오맵 보기</a>
+                <a href="https://map.naver.com/v5/search/청주 벨리스웨딩홀" target="_blank" class="btn">네이버지도 보기</a>
             </div>
         </section>
 
-        <!-- 마음 전하실 곳 -->
+        <!-- 마음 전하실 곳 섹션 -->
         <section class="section">
             <div class="section-title">ACCOUNT</div>
             <p style="font-size: 13px; color: #777; margin-bottom: 15px;">참석이 어려우신 분들을 위해 마음 전하실 곳을 남깁니다.</p>
             
+            <!-- 신랑측 계좌 -->
             <div class="account-box">
+                <div class="account-title">신랑측 계좌번호</div>
                 <div class="account-row">
-                    <span><strong>신랑측 계좌</strong> (OO은행 123-456-78901)</span>
-                    <button class="btn" style="padding: 4px 8px; font-size: 12px;" onclick="copyAccount('12345678901')">복사</button>
+                    <span>OO은행 123-456-78901 (예금주)</span>
+                    <button class="btn" style="padding: 4px 10px; font-size: 12px;" onclick="copyAccount('12345678901')">복사</button>
                 </div>
+            </div>
+
+            <!-- 신부측 계좌 -->
+            <div class="account-box">
+                <div class="account-title">신부측 계좌번호</div>
                 <div class="account-row">
-                    <span><strong>신부측 계좌</strong> (OO은행 987-654-32109)</span>
-                    <button class="btn" style="padding: 4px 8px; font-size: 12px;" onclick="copyAccount('98765432109')">복사</button>
+                    <span>OO은행 987-654-32109 (예금주)</span>
+                    <button class="btn" style="padding: 4px 10px; font-size: 12px;" onclick="copyAccount('98765432109')">복사</button>
                 </div>
             </div>
         </section>
 
         <footer class="footer">
-            Thank you for celebrating with us.
+            THANK YOU FOR CELEBRATING WITH US
         </footer>
     </div>
 
     <script>
-        // 1. 눈 내리는 애니메이션 (Snow Effect)
+        // 1. 눈 내리는 애니메이션
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -253,11 +311,11 @@
         resizeCanvas();
 
         const flakes = [];
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 45; i++) {
             flakes.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 3 + 1,
+                radius: Math.random() * 2.5 + 1,
                 density: Math.random() * 1,
                 opacity: Math.random() * 0.7 + 0.3
             });
@@ -265,7 +323,7 @@
 
         function drawSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
             ctx.beginPath();
             for (let i = 0; i < flakes.length; i++) {
                 const f = flakes[i];
@@ -290,15 +348,15 @@
 
         setInterval(drawSnow, 30);
 
-        // 2. D-Day 카운트다운 (2026년 12월 19일 기준)
-        const weddingDate = new Date("2026-12-19T13:00:00").getTime();
+        // 2. D-Day 카운트다운 (2026년 12월 5일 13:30)
+        const weddingDate = new Date("2026-12-05T13:30:00").getTime();
 
         function updateDday() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
             if (distance < 0) {
-                document.getElementById("dday-text").innerHTML = "예식이 시작되었습니다.";
+                document.getElementById("dday-text").innerText = "오늘 결혼식이 진행됩니다!";
                 return;
             }
 
@@ -317,7 +375,7 @@
         setInterval(updateDday, 1000);
         updateDday();
 
-        // 3. 계좌번호 복사 기능
+        // 3. 계좌번호 복사
         function copyAccount(accountNumber) {
             navigator.clipboard.writeText(accountNumber).then(() => {
                 alert("계좌번호가 복사되었습니다: " + accountNumber);
