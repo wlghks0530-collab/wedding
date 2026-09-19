@@ -6,11 +6,12 @@
     <title>모바일 청첩장 - 12월의 겨울 웨딩</title>
     <style>
         :root {
-            --bg-color: #f7f9fa;
-            --main-color: #2c3e50;
-            --accent-color: #8b0000;
-            --text-color: #333333;
-            --card-bg: #ffffff;
+            --bg-color: #2b3e34; /* 은은하고 고급스러운 딥 세이지 그린 */
+            --card-bg: #1e2b24; /* 카드 내부 어두운 초록 */
+            --main-text: #f4f5f0; /* 따뜻한 아이보리 텍스트 */
+            --sub-text: #c0cbbe; /* 연한 그린 계열 서브 텍스트 */
+            --accent-color: #d4af37; /* 겨울 포인트 골드 */
+            --border-color: #384d41;
         }
 
         body {
@@ -18,12 +19,13 @@
             padding: 0;
             font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--main-text);
             text-align: center;
-            line-height: 1.7;
+            line-height: 1.8;
             overflow-x: hidden;
         }
 
+        /* 눈 내리는 Canvas */
         #snow-canvas {
             position: fixed;
             top: 0;
@@ -38,27 +40,27 @@
             max-width: 480px;
             margin: 0 auto;
             background-color: var(--card-bg);
-            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
             min-height: 100vh;
         }
 
         .header {
             padding: 50px 20px 30px;
-            background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%);
+            background: linear-gradient(180deg, #23332a 0%, #1e2b24 100%);
         }
 
         .sub-title {
             font-size: 13px;
-            letter-spacing: 3px;
-            color: #7f8c8d;
-            margin-bottom: 8px;
+            letter-spacing: 4px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
 
         .main-title {
             font-size: 22px;
-            font-weight: 600;
-            color: var(--main-color);
+            font-weight: 500;
+            color: var(--main-text);
             margin-bottom: 25px;
             letter-spacing: 1px;
         }
@@ -67,8 +69,9 @@
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            margin-bottom: 25px;
+            background-color: #2b3e34;
         }
 
         .main-img {
@@ -80,75 +83,76 @@
 
         .date-info {
             font-size: 16px;
-            color: #444;
-            font-weight: 500;
+            color: var(--main-text);
+            font-weight: 400;
             margin-top: 15px;
+            line-height: 1.6;
         }
 
         .section {
             padding: 45px 25px;
-            border-bottom: 1px solid #f0f3f5;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .section-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-            color: var(--main-color);
+            color: var(--accent-color);
             margin-bottom: 25px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .greeting-text {
             font-size: 15px;
-            color: #555;
+            color: var(--sub-text);
             word-break: keep-all;
-            line-height: 1.9;
+            line-height: 2.0;
         }
 
         .dday-text {
             font-size: 15px;
-            font-weight: 600;
-            color: var(--main-color);
+            font-weight: 500;
+            color: var(--main-text);
             margin-bottom: 15px;
         }
 
         .dday-box {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .dday-item {
-            background: #f8f9fa;
-            padding: 12px 10px;
+            background: #27382f;
+            padding: 12px 8px;
             border-radius: 8px;
             flex: 1;
             max-width: 70px;
-            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
         }
 
         .dday-number {
             font-size: 18px;
             font-weight: bold;
-            color: var(--main-color);
+            color: var(--accent-color);
         }
 
         .dday-label {
-            font-size: 11px;
-            color: #888;
+            font-size: 10px;
+            color: var(--sub-text);
             margin-top: 2px;
         }
 
         .location-name {
             font-size: 18px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--main-text);
             margin-bottom: 5px;
         }
 
         .location-address {
             font-size: 14px;
-            color: #666;
+            color: var(--sub-text);
             margin-bottom: 20px;
         }
 
@@ -156,40 +160,41 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .btn {
             display: inline-block;
-            padding: 11px 20px;
+            padding: 11px 18px;
             border-radius: 6px;
-            background-color: #f1f3f5;
-            color: #333;
+            background-color: #2b3e34;
+            color: var(--main-text);
             text-decoration: none;
-            font-size: 14px;
-            border: none;
+            font-size: 13px;
+            border: 1px solid var(--border-color);
             cursor: pointer;
             transition: all 0.2s;
-            font-weight: 500;
         }
 
         .btn-primary {
-            background-color: var(--main-color);
-            color: #fff;
+            background-color: var(--accent-color);
+            color: #1e2b24;
+            font-weight: 600;
+            border: none;
         }
 
         .account-box {
-            background-color: #f8f9fa;
+            background-color: #27382f;
             border-radius: 10px;
-            padding: 18px;
+            padding: 16px;
             margin-top: 15px;
             text-align: left;
+            border: 1px solid var(--border-color);
         }
 
         .account-title {
             font-weight: 600;
             font-size: 14px;
-            color: #444;
+            color: var(--accent-color);
             margin-bottom: 8px;
         }
 
@@ -197,21 +202,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
-            color: #555;
-            margin-top: 5px;
+            font-size: 13px;
+            color: var(--sub-text);
         }
 
         .footer {
-            padding: 35px 20px;
-            font-size: 12px;
-            color: #aaa;
-            letter-spacing: 1px;
+            padding: 40px 20px;
+            font-size: 11px;
+            color: var(--sub-text);
+            letter-spacing: 2px;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
 
+    <!-- 눈 내리는 배경 Canvas -->
     <canvas id="snow-canvas"></canvas>
 
     <div class="container">
@@ -221,8 +227,9 @@
             <div class="main-title">신랑 & 신부</div>
             
             <div class="main-img-box">
-                <!-- 1단계에서 업로드한 사진 파일명 main.jpg -->
-                <img src="main.jpg" alt="웨딩 사진" class="main-img" onerror="this.src='https://via.placeholder.com/400x550?text=main.jpg+Upload+Required'">
+                <!-- 이미지 파일명이 main.jpg 또는 대소문자 구분을 위해 두 다 대입 -->
+                <img src="./main.jpg" alt="웨딩 사진" class="main-img" 
+                     onerror="this.onerror=null; this.src='./main.JPG';">
             </div>
 
             <div class="date-info">
@@ -272,7 +279,7 @@
         <!-- 마음 전하실 곳 섹션 -->
         <section class="section">
             <div class="section-title">ACCOUNT</div>
-            <p style="font-size: 13px; color: #777; margin-bottom: 15px;">참석이 어려우신 분들을 위해 마음 전하실 곳을 남깁니다.</p>
+            <p style="font-size: 13px; color: var(--sub-text); margin-bottom: 15px;">참석이 어려우신 분들을 위해 마음 전하실 곳을 남깁니다.</p>
             
             <!-- 신랑측 계좌 -->
             <div class="account-box">
@@ -311,19 +318,19 @@
         resizeCanvas();
 
         const flakes = [];
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 65; i++) {
             flakes.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 2.5 + 1,
+                radius: Math.random() * 3 + 1,
                 density: Math.random() * 1,
-                opacity: Math.random() * 0.7 + 0.3
+                opacity: Math.random() * 0.8 + 0.2
             });
         }
 
         function drawSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
             ctx.beginPath();
             for (let i = 0; i < flakes.length; i++) {
                 const f = flakes[i];
@@ -337,7 +344,7 @@
         function updateSnow() {
             for (let i = 0; i < flakes.length; i++) {
                 const f = flakes[i];
-                f.y += Math.cos(f.density) + 1 + f.radius / 2;
+                f.y += Math.cos(f.density) + 1.2 + f.radius / 2;
                 f.x += Math.sin(f.density) * 0.5;
 
                 if (f.y > canvas.height) {
@@ -346,9 +353,9 @@
             }
         }
 
-        setInterval(drawSnow, 30);
+        setInterval(drawSnow, 25);
 
-        // 2. D-Day 카운트다운 (2026년 12월 5일 13:30)
+        // 2. D-Day 카운트다운
         const weddingDate = new Date("2026-12-05T13:30:00").getTime();
 
         function updateDday() {
@@ -375,7 +382,7 @@
         setInterval(updateDday, 1000);
         updateDday();
 
-        // 3. 계좌번호 복사
+        // 3. 계좌 복사
         function copyAccount(accountNumber) {
             navigator.clipboard.writeText(accountNumber).then(() => {
                 alert("계좌번호가 복사되었습니다: " + accountNumber);
